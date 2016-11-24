@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <script type="text/javascript" src="../lib/jquery-3.1.1.min.js" />
+        <script type="text/javascript" src="../compiled/mislab-tagmanager.js" />
+    </head>
+    <body>
+        <form>
+            <select id="mislab-tags" name="mislab-tag[]">
+                <option val="tag-1">tag-1</option>
+                <option val="tag-2" selected="selected">tag-2</option>
+                <option val="tag-3" selected="selected">tag-3</option>
+            </select>
+        </form>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#mislab-tags").mislabtag({
+                    ajax_enabled: false,
+                    bootstrap_struct: false,
+                    create: true
+                });
+            });
+        </script>
+    </body>
+</html>
