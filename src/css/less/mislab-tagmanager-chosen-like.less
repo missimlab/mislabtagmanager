@@ -1,0 +1,70 @@
+@border-color: #aaa;
+@box-shadow-color: rgba(0,0,0,.15);
+@background-color: #fff;
+@background-selected-tag-color: #e4e4e4;
+@gradient-begin-color: #fff;
+@gradient-end-color: #eee;
+@gradient-selected-begin-color: #f0f0f0;
+@gradient-selected-end-color: #f4f4f4;
+@text-color: #333;
+
+.mislab-tag-container {
+    .mislab-list-selected {
+        width: 100%;
+        border: 1px solid @border-color;
+        background-color: @background-color;
+        background-image: -webkit-gradient(linear,50% 0,50% 100%,color-stop(1%,@gradient-end-color),color-stop(15%,@gradient-begin-color));
+        background-image: -webkit-linear-gradient(@gradient-end-color 1%,@gradient-begin-color 15%);
+        background-image: -moz-linear-gradient(@gradient-end-color 1%,@gradient-begin-color 15%);
+        background-image: -o-linear-gradient(@gradient-begin-color 1%,@gradient-begin-color 15%);
+        background-image: linear-gradient(@gradient-end-color 1%,@gradient-begin-color 15%);
+        .selected-tag {
+            display: inline-block;
+            border: 1px solid @border-color;
+            border-radius: 3px;
+            background-color: @background-selected-tag-color;
+            background-image: -webkit-gradient(linear,50% 0,50% 100%,color-stop(1%,@gradient-selected-end-color),color-stop(15%,@gradient-selected-begin-color));
+            background-image: -webkit-linear-gradient(@gradient-selected-end-color 1%,@gradient-selected-begin-color 15%);
+            background-image: -moz-linear-gradient(@gradient-selected-end-color 1%,@gradient-selected-begin-color 15%);
+            background-image: -o-linear-gradient(@gradient-selected-end-color 1%,@gradient-selected-begin-color 15%);
+            background-image: linear-gradient(@gradient-selected-end-color 1%,@gradient-selected-begin-color 15%);
+            background-clip: padding-box;
+            box-shadow: 0 0 2px #fff inset,0 1px 0 rgba(0,0,0,.05);
+            color: @text-color;
+            line-height: 13px;
+            cursor: default;
+            margin: 3px 0 3px 5px;
+            padding: 3px 3px 3px 3px;
+            color: #333;
+            .remove-tag {
+                width: 16px;
+                height: 16px;
+                background: url(img/close.png);
+                z-index: 99999;
+                float: right;
+                margin-left: 3px;
+            }
+        }
+        .enter-tag {
+            border:none;
+        }
+    }
+    .mislab-existing-tags {
+        width: 100%;
+        border: 1px solid @border-color;
+        border-top: 0;
+        background: @background-color;
+        box-shadow: 0 4px 5px @box-shadow-color;
+        padding:0px;
+        margin: 0px;
+        max-height: 100px;
+        overflow-y: scroll;
+        li {
+            color: #333;
+            margin: 0;
+            padding: 5px 6px;
+            list-style: none;
+            line-height: 15px;
+        }
+    }
+}
