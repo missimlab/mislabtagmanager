@@ -6,7 +6,7 @@
 MislabTagDOMHandler = function(input) {
     this.input = input;
     this.inputId = this.generateInputId();
-    this.listselector = ".mislab-list-selected";
+    this.listclass = "mislab-list-selected";
 }
 
 MislabTagDOMHandler.prototype.getTagsFromInput = function()
@@ -30,7 +30,8 @@ MislabTagDOMHandler.prototype.hideInput = function()
 MislabTagDOMHandler.prototype.initDom = function(tags)
 {
     var self = this;
-    var list = '<div class="'+this.listselector+'" data-mislab-id="'+this.inputId+'"></div>';
+
+    var list = '<div class="mislab-tag-container" data-mislab-id="'+this.inputId+'"><div class="'+this.listclass+'"></div></div>';
     $(list).insertBefore(this.input);
     this.input.attr("data-mislab-input-id", this.inputId);
     $.each(tags, function(){
@@ -40,14 +41,28 @@ MislabTagDOMHandler.prototype.initDom = function(tags)
     });
     $("*[data-mislab-id="+this.inputId+"]").append('<input type="text" class="enter-tag" />');
     this.hideInput();
+    this.createList(tags);
 }
 
 MislabTagDOMHandler.prototype.createTag = function(tag) {
-    $("*[data-mislab-id="+this.inputId+"]").append('<div class="selected-tag" data-label="'+tag.label+'">'+tag.label+'<div class="remove-tag"></div></div>');
+    console.log(".mislab-tag-container[data-mislab-id="+this.inputId+"] ."+this.listclass);
+    $(".mislab-tag-container[data-mislab-id="+this.inputId+"] ."+this.listclass).append('<div class="selected-tag" data-label="'+tag.label+'">'+tag.label+'<div class="remove-tag"></div></div>');
 }
 
 MislabTagDOMHandler.prototype.generateInputId = function() {
     return Math.random().toString(36).substr(2, 9);
+}
+
+MislabTagDOMHandler.prototype.createList = function(tags) {
+    var self = this;
+    $(".mislab-tag-container[data-mislab-id="+this.inputId+"]").append('<ul class="mislab-existing-tags"></ul>');
+    
+    $.each(tags, function(){
+        console.log(this.selected);
+        if(this.selected == false) {
+            $(".mislab-tag-container[data-mislab-id="+self.inputId+"] .mislab-existing-tags").append('<li>'+this.label+'</li>');
+        }
+    });
 }
 
 
