@@ -39,7 +39,7 @@ MislabTagDOMHandler.prototype.initDom = function(tags)
             self.createTag(this);
         }
     });
-    $("*[data-mislab-id="+this.inputId+"]").append('<input type="text" class="enter-tag" />');
+    $(".mislab-tag-container[data-mislab-id="+this.inputId+"] ."+this.listclass).append('<input type="text" class="enter-tag" />');
     this.hideInput();
     this.createList(tags);
 }
