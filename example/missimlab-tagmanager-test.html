@@ -1,6 +1,9 @@
 <html>
     <head>
         <script type="text/javascript" src="../lib/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" src="../src/mislab-tagobject.class.js"></script>
+        <script type="text/javascript" src="../src/mislab-tagmanager.class.js"></script>
+        <script type="text/javascript" src="../src/mislab-domhandler.class.js"></script>
         <script type="text/javascript" src="../src/mislab-tagmanager.js"></script>
     </head>
     <body>
@@ -15,7 +18,6 @@
             $(document).ready(function(){
                 $("#mislab-tags").mislabtag({
                     ajax_enabled: false,
-                    bootstrap_struct: false,
                     create: true
                 });
             });

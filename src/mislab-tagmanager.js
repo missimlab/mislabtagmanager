@@ -1,6 +1,23 @@
-(function($) {
+(function($) {  
+  var MislabNamespace = MislabNamespace || {};  
+
+  AutocompleteManager = (function(){
+
+  });
+
+  EventHandler = (function(){
+    function EventHandler() {
+
+    }
+  });
+
+
     $.fn.mislabtag = function(action, options) {
         var mislabtagSettings = $.extend({}, options);
+
+        manager = new MislabTagManager();
+        console.log(manager);
+        manager.init(this, mislabtagSettings);
         return this;
     };
 
