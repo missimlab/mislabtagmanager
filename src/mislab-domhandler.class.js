@@ -11,7 +11,6 @@ MislabTagDOMHandler = function(input) {
 
 MislabTagDOMHandler.prototype.getTagsFromInput = function()
 {
-    
     var options = this.input.find('option');
     var tags = [];
     $.each(options, function(){
@@ -42,10 +41,10 @@ MislabTagDOMHandler.prototype.initDom = function(tags)
     $(".mislab-tag-container[data-mislab-id="+this.inputId+"] ."+this.listclass).append('<input type="text" class="enter-tag" />');
     this.hideInput();
     this.createList(tags);
+
 }
 
 MislabTagDOMHandler.prototype.createTag = function(tag) {
-    console.log(".mislab-tag-container[data-mislab-id="+this.inputId+"] ."+this.listclass);
     $(".mislab-tag-container[data-mislab-id="+this.inputId+"] ."+this.listclass).append('<div class="selected-tag" data-label="'+tag.label+'">'+tag.label+'<div class="remove-tag"></div></div>');
 }
 
@@ -58,11 +57,27 @@ MislabTagDOMHandler.prototype.createList = function(tags) {
     $(".mislab-tag-container[data-mislab-id="+this.inputId+"]").append('<ul class="mislab-existing-tags"></ul>');
     
     $.each(tags, function(){
-        console.log(this.selected);
         if(this.selected == false) {
             $(".mislab-tag-container[data-mislab-id="+self.inputId+"] .mislab-existing-tags").append('<li>'+this.label+'</li>');
+            $(".mislab-tag-container[data-mislab-id="+self.inputId+"] .mislab-existing-tags").hide();
         }
     });
+}
+
+MislabTagDOMHandler.prototype.displayTagList = function(tagsActive) {
+    var self = this;
+    $(".mislab-tag-container[data-mislab-id="+self.inputId+"] .mislab-existing-tags li").removeClass('active');
+    console.log(tagsActive.length);
+    if(tagsActive.length == 0 ) {
+        $(".mislab-tag-container[data-mislab-id="+this.inputId+"] .mislab-existing-tags").hide();
+    } else {
+        $.each(tagsActive, function(){
+            $(".mislab-tag-container[data-mislab-id="+self.inputId+"] .mislab-existing-tags li:contains('"+this.label+"')").addClass('active');
+        });
+        $(".mislab-tag-container[data-mislab-id="+this.inputId+"] .mislab-existing-tags").show();
+
+    }
+
 }
 
 
