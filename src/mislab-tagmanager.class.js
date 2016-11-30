@@ -9,10 +9,6 @@ function MislabTagManager() {
 };
 
 MislabTagManager.prototype.init = function(input) {
-
-    console.log("************TagManager : INIT***********");
-    console.log("input"); console.log(input);
-
     this.domHandler = new MislabTagDOMHandler(input);
     this.eventHandler = new MislabTagEventHandler(this, this.options);
     this.tags = this.domHandler.getTagsFromInput();
@@ -23,3 +19,15 @@ MislabTagManager.prototype.init = function(input) {
 MislabTagManager.prototype.displayTagList = function(tagsActive) {
     this.domHandler.displayTagList(tagsActive);
 }
+
+
+MislabTagManager.prototype.highlightUp = function()
+{
+    this.domHandler.highlightUp();
+}
+
+MislabTagManager.prototype.highlightDown = function()
+{
+    this.domHandler.highlightDown();
+}
+

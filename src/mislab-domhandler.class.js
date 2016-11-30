@@ -67,7 +67,8 @@ MislabTagDOMHandler.prototype.createList = function(tags) {
 MislabTagDOMHandler.prototype.displayTagList = function(tagsActive) {
     var self = this;
     $(".mislab-tag-container[data-mislab-id="+self.inputId+"] .mislab-existing-tags li").removeClass('active');
-    console.log(tagsActive.length);
+    $(".mislab-tag-container[data-mislab-id="+self.inputId+"] .mislab-existing-tags li").removeClass('highlighted');
+
     if(tagsActive.length == 0 ) {
         $(".mislab-tag-container[data-mislab-id="+this.inputId+"] .mislab-existing-tags").hide();
     } else {
@@ -77,7 +78,35 @@ MislabTagDOMHandler.prototype.displayTagList = function(tagsActive) {
         $(".mislab-tag-container[data-mislab-id="+this.inputId+"] .mislab-existing-tags").show();
 
     }
-
 }
 
+MislabTagDOMHandler.prototype.highlightUp = function()
+{
+    
+    var oldHighlighted = $(".mislab-tag-container[data-mislab-id="+this.inputId+"] .mislab-existing-tags li.active.highlighted")
+        .removeClass('highlighted')
+        .prev()
+        .addClass('highlighted');
+}
 
+MislabTagDOMHandler.prototype.highlightDown = function()
+{
+    
+    var oldHighlighted = $(".mislab-tag-container[data-mislab-id="+this.inputId+"] .mislab-existing-tags li.active.highlighted");
+    if(oldHighlighted.length == 0) {
+        $(".mislab-tag-container[data-mislab-id="+this.inputId+"] .mislab-existing-tags li.active:first").addClass("highlighted");
+    } else {
+        var newHighlighted = oldHighlighted
+                .removeClass('highlighted')
+                .next();
+         if(newHighlighted.hasClass('active')) {
+             newHighlighted.addClass('highlighted');
+            
+         } else {
+             if(newHighlighted.next() != undefined) {
+                this.highlightDown();
+             }
+         }
+                
+    }
+}

@@ -11,17 +11,28 @@ MislabTagEventHandler.prototype.registerEvents = function(inputId) {
 }
 
 MislabTagEventHandler.prototype.autocompleteTag = function(event) {
-    console.log("autocompleted tag");
-    var tags = event.data.tags;
-    var str = $(this).val();
-    var tagsActive = []
     var eventHandler = event.data.eventHandler;
-    if(str.length != 0) {
-        for(index in tags) {
-            if(tags[index].label.search(str) != -1) {
-                tagsActive.push(tags[index]);
+    switch(event.keyCode) {
+        case 38:
+            event.preventDefault();
+            eventHandler.tagManager.highlightUp();
+            break;
+        case 40:
+            event.preventDefault();
+            eventHandler.tagManager.highlightDown();
+            break;
+       default:
+            var tags = event.data.tags;
+            var str = $(this).val();
+            var tagsActive = []
+            if(str.length != 0) {
+                for(index in tags) {
+                    if(tags[index].label.search(str) != -1) {
+                        tagsActive.push(tags[index]);
+                    }
+                }
             }
-        }
+            eventHandler.tagManager.displayTagList(tagsActive);
     }
-    eventHandler.tagManager.displayTagList(tagsActive);
+    
 }
