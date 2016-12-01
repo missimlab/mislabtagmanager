@@ -31,3 +31,12 @@ MislabTagManager.prototype.highlightDown = function()
     this.domHandler.highlightDown();
 }
 
+MislabTagManager.prototype.highlightTag = function(tag)
+{
+    this.domHandler.highlightTag(tag);
+}
+
+MislabTagManager.prototype.unhighlightTag = function(tag)
+{
+    this.domHandler.unhighlightTag(tag);
+}

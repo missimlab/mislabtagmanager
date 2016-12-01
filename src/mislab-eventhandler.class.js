@@ -7,7 +7,22 @@ MislabTagEventHandler = function(tagManager,options) {
 
 MislabTagEventHandler.prototype.registerEvents = function(inputId) {
     var self = this;
-    $(".mislab-tag-container[data-mislab-id="+inputId+"] .enter-tag").on("keyup",  null, {tags: this.tagManager.tags, eventHandler: this}, this.autocompleteTag);
+    $(".mislab-tag-container[data-mislab-id="+inputId+"] .enter-tag")
+        .on(
+            "keyup",  
+            null, 
+            {tags: this.tagManager.tags, eventHandler: this}, 
+            this.autocompleteTag
+        );
+
+    $(".mislab-tag-container[data-mislab-id="+inputId+"] .mislab-existing-tags li").on('mouseenter',null, 
+            {tags: this.tagManager.tags, eventHandler: this}, 
+            this.highlightTag);
+
+    $(".mislab-tag-container[data-mislab-id="+inputId+"] .mislab-existing-tags li").on('mouseout',null, 
+            {tags: this.tagManager.tags, eventHandler: this}, 
+            this.unhighlightTag);
+            
 }
 
 MislabTagEventHandler.prototype.autocompleteTag = function(event) {
@@ -33,6 +48,15 @@ MislabTagEventHandler.prototype.autocompleteTag = function(event) {
                 }
             }
             eventHandler.tagManager.displayTagList(tagsActive);
-    }
-    
+    }   
+}
+
+MislabTagEventHandler.prototype.highlightTag = function(event) {
+    var eventHandler = event.data.eventHandler;
+    eventHandler.tagManager.highlightTag($(this));
+}
+
+MislabTagEventHandler.prototype.unhighlightTag = function(event) {
+    var eventHandler = event.data.eventHandler;
+    eventHandler.tagManager.unhighlightTag($(this));
 }

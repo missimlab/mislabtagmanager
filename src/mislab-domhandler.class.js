@@ -114,3 +114,15 @@ MislabTagDOMHandler.prototype.highlightDown = function()
                 
     }
 }
+
+MislabTagDOMHandler.prototype.highlightTag = function(tag)
+{
+    $(".mislab-tag-container[data-mislab-id="+this.inputId+"] .mislab-existing-tags li.highlighted").removeClass("highlighted");
+    tag.addClass("highlighted");
+
+}
+
+MislabTagDOMHandler.prototype.unhighlightTag = function(tag)
+{
+    tag.removeClass("highlighted");
+}
