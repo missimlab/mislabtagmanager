@@ -82,30 +82,34 @@ MislabTagDOMHandler.prototype.displayTagList = function(tagsActive) {
 
 MislabTagDOMHandler.prototype.highlightUp = function()
 {
-    
-    var oldHighlighted = $(".mislab-tag-container[data-mislab-id="+this.inputId+"] .mislab-existing-tags li.active.highlighted")
-        .removeClass('highlighted')
-        .prev()
-        .addClass('highlighted');
+    var oldHighlighted = $(".mislab-tag-container[data-mislab-id="+this.inputId+"] .mislab-existing-tags li.highlighted");
+    if(oldHighlighted.length == 0) {
+        $(".mislab-tag-container[data-mislab-id="+this.inputId+"] .mislab-existing-tags li.active:last").addClass("highlighted");
+    } else {
+        var newHighlighted = oldHighlighted
+                .removeClass('highlighted')
+                .prev();
+            newHighlighted.addClass('highlighted');
+
+         if(!newHighlighted.hasClass('active')) {
+             this.highlightUp();   
+         }
+    }  
 }
 
 MislabTagDOMHandler.prototype.highlightDown = function()
 {
-    
-    var oldHighlighted = $(".mislab-tag-container[data-mislab-id="+this.inputId+"] .mislab-existing-tags li.active.highlighted");
+    var oldHighlighted = $(".mislab-tag-container[data-mislab-id="+this.inputId+"] .mislab-existing-tags li.highlighted");
     if(oldHighlighted.length == 0) {
         $(".mislab-tag-container[data-mislab-id="+this.inputId+"] .mislab-existing-tags li.active:first").addClass("highlighted");
     } else {
         var newHighlighted = oldHighlighted
                 .removeClass('highlighted')
                 .next();
-         if(newHighlighted.hasClass('active')) {
-             newHighlighted.addClass('highlighted');
-            
-         } else {
-             if(newHighlighted.next() != undefined) {
-                this.highlightDown();
-             }
+            newHighlighted.addClass('highlighted');
+
+         if(!newHighlighted.hasClass('active')) {
+             this.highlightDown();   
          }
                 
     }
