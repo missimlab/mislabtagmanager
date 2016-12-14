@@ -7,6 +7,7 @@ MislabTagDOMHandler = function(input, inputId) {
     this.input = input;
     this.inputId = inputId;
     this.listclass = "mislab-list-selected";
+    this.eventHandler = new MislabTagEventHandler(this.inputId);
 }
 
 MislabTagDOMHandler.prototype.getTagsFromInput = function()
