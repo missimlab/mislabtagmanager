@@ -3,9 +3,9 @@
  *     - Init DOM parsing input in parameter (return an array of tags)
  *     
  */
-MislabTagDOMHandler = function(input) {
+MislabTagDOMHandler = function(input, inputId) {
     this.input = input;
-    this.inputId = this.generateInputId();
+    this.inputId = inputId;
     this.listclass = "mislab-list-selected";
 }
 
@@ -26,11 +26,16 @@ MislabTagDOMHandler.prototype.hideInput = function()
     this.input.hide();
 }
 
+MislabTagDOMHandler.prototype.addOptionToInputFromTag = function(tag)
+{
+    this.input.append('<option selected=selected value='+tag.label+'></option>');
+}
+
 MislabTagDOMHandler.prototype.initDom = function(tags)
 {
     var self = this;
 
-    var list = '<div class="mislab-tag-container" data-mislab-id="'+this.inputId+'"><div class="'+this.listclass+'"></div></div>';
+    var list = '<div class="mislab-tag-container" data-mislab-id="'+this.inputId+'"><div class="'+this.listclass+'"><div class="list"></div></div>';
     $(list).insertBefore(this.input);
     this.input.attr("data-mislab-input-id", this.inputId);
     $.each(tags, function(){
@@ -45,22 +50,18 @@ MislabTagDOMHandler.prototype.initDom = function(tags)
 }
 
 MislabTagDOMHandler.prototype.createTag = function(tag) {
-    $(".mislab-tag-container[data-mislab-id="+this.inputId+"] ."+this.listclass).append('<div class="selected-tag" data-label="'+tag.label+'">'+tag.label+'<div class="remove-tag"></div></div>');
+    $(".mislab-tag-container[data-mislab-id="+this.inputId+"] ."+this.listclass+" .list").append('<div class="selected-tag" data-label="'+tag.label+'">'+tag.label+'<div class="remove-tag"></div></div>');
 }
 
-MislabTagDOMHandler.prototype.generateInputId = function() {
-    return Math.random().toString(36).substr(2, 9);
-}
 
 MislabTagDOMHandler.prototype.createList = function(tags) {
     var self = this;
     $(".mislab-tag-container[data-mislab-id="+this.inputId+"]").append('<ul class="mislab-existing-tags"></ul>');
     
     $.each(tags, function(){
-        if(this.selected == false) {
-            $(".mislab-tag-container[data-mislab-id="+self.inputId+"] .mislab-existing-tags").append('<li>'+this.label+'</li>');
-            $(".mislab-tag-container[data-mislab-id="+self.inputId+"] .mislab-existing-tags").hide();
-        }
+        var selected = (this.selected) ? ' class="selected-tag"' : "";
+        $(".mislab-tag-container[data-mislab-id="+self.inputId+"] .mislab-existing-tags").append('<li'+selected+'>'+this.label+'</li>');
+        $(".mislab-tag-container[data-mislab-id="+self.inputId+"] .mislab-existing-tags").hide();
     });
 }
 
@@ -74,6 +75,9 @@ MislabTagDOMHandler.prototype.displayTagList = function(tagsActive) {
     } else {
         $.each(tagsActive, function(){
             $(".mislab-tag-container[data-mislab-id="+self.inputId+"] .mislab-existing-tags li:contains('"+this.label+"')").addClass('active');
+            if(this.selected) {
+                $(".mislab-tag-container[data-mislab-id="+self.inputId+"] .mislab-existing-tags li:contains('"+this.label+"')").addClass('selected-tag');
+            }
         });
         $(".mislab-tag-container[data-mislab-id="+this.inputId+"] .mislab-existing-tags").show();
 
@@ -119,10 +123,19 @@ MislabTagDOMHandler.prototype.highlightTag = function(tag)
 {
     $(".mislab-tag-container[data-mislab-id="+this.inputId+"] .mislab-existing-tags li.highlighted").removeClass("highlighted");
     tag.addClass("highlighted");
-
 }
 
 MislabTagDOMHandler.prototype.unhighlightTag = function(tag)
 {
     tag.removeClass("highlighted");
+}
+
+MislabTagDOMHandler.prototype.hideList = function()
+{
+    $(".mislab-tag-container[data-mislab-id="+this.inputId+"] .mislab-existing-tags").hide();
+}
+
+MislabTagDOMHandler.prototype.removeTag = function(tag)
+{
+    $(".mislab-tag-container[data-mislab-id="+this.inputId+"] .selected-tag[data-label="+tag.label+"]").remove();
 }
