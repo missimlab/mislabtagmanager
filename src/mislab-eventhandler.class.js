@@ -60,8 +60,12 @@ MislabTagEventHandler.prototype.autocompleteTag = function(event) {
             eventHandler.tagManager.highlightDown();
             break;
        case 13:
-            event.preventDefault();
-            eventHandler.tagManager.enterTag($(this).val());
+            if($(this).closest('.mislab-tag-container[data-mislab-id='+eventHandler.tagManager.inputId+']').find(".highlighted").length == 0)
+            {
+                eventHandler.tagManager.enterTag($(this).val());
+            } else {
+                eventHandler.tagManager.selectTag($(this).closest('.mislab-tag-container[data-mislab-id='+eventHandler.tagManager.inputId+']').find(".highlighted").text());
+            }
             break;
        default:
             var tags = event.data.tags;
