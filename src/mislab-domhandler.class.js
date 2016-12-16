@@ -137,5 +137,5 @@ MislabTagDOMHandler.prototype.hideList = function()
 
 MislabTagDOMHandler.prototype.removeTag = function(tag)
 {
-    $(".mislab-tag-container[data-mislab-id="+this.inputId+"] .selected-tag[data-label="+tag.label+"]").remove();
+    $(".mislab-tag-container[data-mislab-id='"+this.inputId+"'] .selected-tag[data-label='"+tag.label+"']").remove();
 }
