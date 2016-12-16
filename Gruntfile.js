@@ -6,19 +6,25 @@ module.exports = function(grunt) {
     uglify: {
       build: { 
         files: [{
-            src: 'src/*.js',
-            dest: 'compiled/mislab-tagmanager.min.js'
+            src: 'src/js/*.js',
+            dest: 'compiled/js/mislab-tagmanager.min.js'
         }]
       }
     },
-    src_files: ['src/*.js'],
-    dest_files: ['compiled/*.min.js']
+    less: {
+      development: {
+        files: {
+          'compiled/css/mislab-tagmanager-chosen-like.css': 'src/css/less/mislab-tagmanager-chosen-like.less'
+        }
+      },
+    }
   });
 
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-less');
 
   // Default task(s).
-  grunt.registerTask('default', ['uglify']);
+  grunt.registerTask('default', ['uglify', 'less']);
 
 };
