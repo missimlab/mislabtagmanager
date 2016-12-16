@@ -96,8 +96,7 @@ MislabTagEventHandler.prototype.hideList = function(event)
 {
         var eventHandler = event.data.eventHandler;
         if($(this).closest('.mislab-tag-container[data-mislab-id='+eventHandler.tagManager.inputId+']').length == 0) {
-            console.log('here');
-            eventHandler.tagManager.hideList();    
+            eventHandler.tagManager.hideList();
         } else if($(this).closest('.mislab-existing-tags').length == 0) {
             event.stopPropagation();
         }
@@ -108,7 +107,6 @@ MislabTagEventHandler.prototype.selectTag = function(event)
 {
     var eventHandler = event.data.eventHandler;
     eventHandler.tagManager.selectTag($(this).text());
-    console.log('event fired : select tag');
 }
 
 MislabTagEventHandler.prototype.removeTag = function(event)

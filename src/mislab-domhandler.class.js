@@ -140,3 +140,14 @@ MislabTagDOMHandler.prototype.removeTag = function(tag)
 {
     $(".mislab-tag-container[data-mislab-id='"+this.inputId+"'] .selected-tag[data-label='"+tag.label+"']").remove();
 }
+
+MislabTagDOMHandler.prototype.updateInput = function(tags)
+{
+    var self = this;
+    this.input.find("option").removeAttr('selected');
+    $.each(tags, function(){
+        if(this.selected) {
+            self.input.find('option[value="'+this.label+'"]').attr('selected', 'selected');
+        }
+    });
+}
