@@ -1,8 +1,3 @@
-/**
- * DOMHandler manages all DOM operations, ie : 
- *     - Init DOM parsing input in parameter (return an array of tags)
- *     
- */
 MislabTagDOMHandler = function(input, inputId) {
     this.input = input;
     this.inputId = inputId;
@@ -35,7 +30,6 @@ MislabTagDOMHandler.prototype.addOptionToInputFromTag = function(tag)
 MislabTagDOMHandler.prototype.initDom = function(tags)
 {
     var self = this;
-
     var list = '<div class="mislab-tag-container" data-mislab-id="'+this.inputId+'"><div class="'+this.listclass+'"><div class="list"></div></div>';
     $(list).insertBefore(this.input);
     this.input.attr("data-mislab-input-id", this.inputId);
@@ -143,11 +137,20 @@ MislabTagDOMHandler.prototype.removeTag = function(tag)
 
 MislabTagDOMHandler.prototype.updateInput = function(tags)
 {
+    
     var self = this;
     this.input.find("option").removeAttr('selected');
     $.each(tags, function(){
         if(this.selected) {
+            if(self.input.find('option[value="'+this.label+'"]').length == 0) {
+                self.input.append('<option value="'+this.label+'">'+this.label+'</option>');
+            }
             self.input.find('option[value="'+this.label+'"]').attr('selected', 'selected');
         }
     });
+}
+
+MislabTagDOMHandler.prototype.clearInput = function(tags)
+{
+     $(".mislab-tag-container[data-mislab-id="+this.inputId+"] .enter-tag").val('');
 }

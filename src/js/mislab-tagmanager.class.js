@@ -58,6 +58,7 @@ MislabTagManager.prototype.selectTag = function(tagLabel) {
     tag.selected = true;
     this.domHandler.createTag(tag);
     this.domHandler.updateInput(this.tags);
+    this.domHandler.clearInput();
     this.domHandler.hideList();
 }
 
@@ -80,6 +81,6 @@ MislabTagManager.prototype.enterTag = function(tagLabel) {
     var tag = new MislabTagObject(tagLabel, true, this.inputId);
     this.tags.push(tag);
     this.domHandler.createTag(tag);
-    console.log(this.tags);
+    this.domHandler.clearInput();
     this.domHandler.updateInput(this.tags);
 }
